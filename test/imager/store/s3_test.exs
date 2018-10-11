@@ -37,21 +37,19 @@ defmodule Imager.Store.S3Test do
         assert conn.request_path == @path
 
         conn
-        |> put_resp_header("content-length", "123456")
         |> put_resp_header("content-type", "foo/bar")
-        |> resp(200, "")
+        |> resp(200, "foo")
       end)
 
-      assert {:ok, {123_456, "foo/bar", _}} =
+      assert {:ok, {3, "foo/bar", _}} =
                Subject.retrieve(@path, port: bypass.port)
     end
 
     test "returned stream fetches data from store", %{bypass: bypass} do
       Bypass.expect_once(bypass, "HEAD", @path, fn conn ->
         conn
-        |> put_resp_header("content-length", "3")
         |> put_resp_header("content-type", "foo/bar")
-        |> resp(200, "")
+        |> resp(200, "foo")
       end)
 
       assert {:ok, {3, "foo/bar", stream}} =
@@ -69,9 +67,8 @@ defmodule Imager.Store.S3Test do
     test "respects requested chunk_size", %{bypass: bypass} do
       Bypass.expect_once(bypass, "HEAD", @path, fn conn ->
         conn
-        |> put_resp_header("content-length", "3")
         |> put_resp_header("content-type", "foo/bar")
-        |> resp(200, "")
+        |> resp(200, "foo")
       end)
 
       assert {:ok, {3, "foo/bar", stream}} =

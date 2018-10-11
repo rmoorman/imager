@@ -11,15 +11,16 @@ config :imager, ImagerWeb.Endpoint,
   render_errors: [view: ImagerWeb.Views.Error, accepts: ~w(json)],
   instrumenters: [Prometheus.PhoenixInstrumenter]
 
+config :phoenix, :json_library, Jason
+
+config :ex_aws, :json_codec, Jason
+
+config :jose, :json_module, :jose_json_jason
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: :all
-
-config :phoenix, :format_encoders, json: Jason
-
-config :ex_aws,
-  json_codec: Jason
 
 config :sentry,
   included_environments: [:prod],

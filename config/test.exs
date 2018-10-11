@@ -26,5 +26,7 @@ config :ex_aws,
   ],
   retries: [max_attempts: 1]
 
+config :bypass, adapter: Plug.Adapters.Cowboy2
+
 # Print only warnings and errors during test
 config :logger, level: :warn

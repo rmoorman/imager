@@ -49,9 +49,9 @@ defmodule Imager.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.2"},
+      {:phoenix, "~> 1.4.0-rc.0", override: true},
       {:phoenix_pubsub, "~> 1.0"},
-      {:cowboy, "~> 1.0"},
+      {:cowboy, "~> 2.0"},
       {:distillery, "~> 2.0"},
       {:prometheus, "~> 4.1"},
       {:prometheus_phoenix, "~> 1.2.0"},
